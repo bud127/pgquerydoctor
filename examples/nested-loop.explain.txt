@@ -1,0 +1,9 @@
+Nested Loop  (cost=0.42..98000.00 rows=250000 width=64) (actual time=0.090..1850.500 rows=240000 loops=1)
+  Buffers: shared hit=700000 read=12000
+  ->  Seq Scan on orders o  (cost=0.00..36000.00 rows=250000 width=32) (actual time=0.060..420.000 rows=250000 loops=1)
+        Filter: (created_at >= (now() - '30 days'::interval))
+        Rows Removed by Filter: 750000
+  ->  Index Scan using payments_order_id_idx on payments p  (cost=0.42..0.80 rows=1 width=40) (actual time=0.004..0.005 rows=1 loops=250000)
+        Index Cond: (order_id = o.id)
+Planning Time: 1.620 ms
+Execution Time: 1854.920 ms

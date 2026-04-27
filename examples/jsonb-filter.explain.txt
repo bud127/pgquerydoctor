@@ -1,0 +1,11 @@
+Limit  (cost=22000.00..22000.13 rows=50 width=256) (actual time=610.410..610.500 rows=50 loops=1)
+  Buffers: shared hit=12000 read=4000
+  ->  Sort  (cost=22000.00..22025.00 rows=10000 width=256) (actual time=610.400..610.455 rows=50 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: top-N heapsort  Memory: 96kB
+        ->  Seq Scan on orders  (cost=0.00..21668.00 rows=10000 width=256) (actual time=0.090..590.250 rows=18000 loops=1)
+              Filter: (payload @> '{"status": "PAID", "channel": "MOBILE"}'::jsonb)
+              Rows Removed by Filter: 482000
+              Buffers: shared hit=12000 read=4000
+Planning Time: 0.850 ms
+Execution Time: 611.012 ms

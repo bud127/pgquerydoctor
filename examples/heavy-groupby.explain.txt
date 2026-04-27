@@ -1,0 +1,12 @@
+Sort  (cost=64000.00..64200.00 rows=80000 width=40) (actual time=1320.500..1360.700 rows=60000 loops=1)
+  Sort Key: (sum(total_amount)) DESC
+  Sort Method: external merge  Disk: 24576kB
+  Buffers: shared hit=21000 read=9000, temp read=1200 written=1300
+  ->  HashAggregate  (cost=53000.00..56000.00 rows=80000 width=40) (actual time=980.100..1210.800 rows=60000 loops=1)
+        Group Key: customer_id
+        Filter: (count(*) > 10)
+        Rows Removed by Filter: 140000
+        ->  Seq Scan on orders  (cost=0.00..47000.00 rows=800000 width=24) (actual time=0.070..700.450 rows=820000 loops=1)
+              Filter: (created_at >= (now() - '90 days'::interval))
+Planning Time: 1.430 ms
+Execution Time: 1364.333 ms

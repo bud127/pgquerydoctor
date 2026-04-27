@@ -1,0 +1,9 @@
+Unique  (cost=42000.00..43500.00 rows=80000 width=48) (actual time=980.100..1150.300 rows=80000 loops=1)
+  Buffers: shared hit=18000 read=7000, temp read=1600 written=1700
+  ->  Sort  (cost=42000.00..42750.00 rows=300000 width=48) (actual time=980.090..1085.220 rows=300000 loops=1)
+        Sort Key: customer_id, created_at DESC
+        Sort Method: external merge  Disk: 32768kB
+        ->  Seq Scan on orders  (cost=0.00..25000.00 rows=300000 width=48) (actual time=0.060..540.000 rows=300000 loops=1)
+              Filter: (status = 'PAID'::text)
+Planning Time: 1.010 ms
+Execution Time: 1152.880 ms

@@ -1,0 +1,12 @@
+Limit  (cost=18500.50..18500.55 rows=20 width=96) (actual time=420.210..420.230 rows=20 loops=1)
+  Buffers: shared hit=8420 read=1580, temp read=420 written=430
+  ->  Sort  (cost=18475.50..18525.50 rows=20000 width=96) (actual time=390.120..418.900 rows=10020 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: external merge  Disk: 8192kB
+        Buffers: shared hit=8420 read=1580, temp read=420 written=430
+        ->  Seq Scan on users  (cost=0.00..15000.00 rows=20000 width=96) (actual time=0.050..260.500 rows=250000 loops=1)
+              Filter: (status = 'ACTIVE'::text)
+              Rows Removed by Filter: 50000
+              Buffers: shared hit=8420 read=1580
+Planning Time: 1.220 ms
+Execution Time: 421.004 ms
